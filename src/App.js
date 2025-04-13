@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Login from './components/auth/Login';
 import ResidentialCalendar from './components/calendar/Calendar';
+import PagosSimulados from './components/pago/Pagos';
 import './App.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [mostrarPagos, setMostrarPagos] = useState(false);
 
   // Verificar autenticación al cargar
   useEffect(() => {
@@ -54,6 +56,18 @@ function App() {
             </button>
           </header>
           <ResidentialCalendar />
+          <button
+            onClick={() => setMostrarPagos(true)}
+            style={{ margin: '20px' }}
+            >
+              Pagar Cuota Mensual
+            </button>
+            {mostrarPagos &&(
+              <div className="modal">
+                <PagosSimulados />
+                <button onClick={() => setMostrarPagos(false)}>Cerrar</button>
+              </div>
+            )}
         </>
       ) : (
         <Login onLogin={handleLogin} />
